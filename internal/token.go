@@ -110,6 +110,7 @@ var brokenAuthHeaderProviders = []string{
 	"https://user.gini.net/",
 	"https://api.netatmo.net/",
 	"https://slack.com/",
+	"https://graph.qq.com/",
 }
 
 // providerAuthHeaderWorks reports whether the OAuth2 server identified by the tokenURL
@@ -169,7 +170,7 @@ func RetrieveToken(ctx context.Context, ClientID, ClientSecret, TokenURL string,
 	var token *Token
 	content, _, _ := mime.ParseMediaType(r.Header.Get("Content-Type"))
 	switch content {
-	case "application/x-www-form-urlencoded", "text/plain":
+	case "application/x-www-form-urlencoded", "text/plain", "text/html":
 		vals, err := url.ParseQuery(string(body))
 		if err != nil {
 			return nil, err
